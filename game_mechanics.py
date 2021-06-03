@@ -37,15 +37,12 @@ class Deck:
     """ A standard 52-card deck with 4 suits of 13 ranks each """
     def __init__(self):
         self.cards = []
-        self.build()
-
-    def __repr__(self):
-        return 'Deck({c})'.format(c=self.cards)
-
-    def build(self):
         for s in ['Clubs', 'Diamonds', 'Hearts', 'Spades']:
             for r in chain(['A'], range(2, 11), ['J', 'Q', 'K']):
                self.cards.append(Card(r, s))
+
+    def __repr__(self):
+        return 'Deck({c})'.format(c=self.cards)
 
     def shuffle(self):
         """Shuffles the deck"""
