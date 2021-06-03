@@ -4,6 +4,7 @@
 # IMPORTS
 from typing import Union
 from itertools import chain
+import random
 
 # GLOBAL CONSTANTS
 FACE_CARD_VALUES = {'A': 1, 'J': 10, 'Q': 10, 'K': 10}
@@ -45,3 +46,13 @@ class Deck:
         for s in ['Clubs', 'Diamonds', 'Hearts', 'Spades']:
             for r in chain(['A'], range(2, 11), ['J', 'Q', 'K']):
                self.cards.append(Card(r, s))
+
+    def shuffle(self):
+        # simulates random shuffling of deck
+        random.shuffle(self.cards)
+    
+    def draw(self, draw_n: int):
+        # simulates drawing "draw_n" number of cards from the top of the deck
+        draw_cards = self.cards[:draw_n]
+        self.cards[:draw_n] = [] # remove cards drawn from deck
+        return draw_cards
