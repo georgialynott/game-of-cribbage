@@ -56,3 +56,20 @@ class Deck:
         draw_cards = self.cards[:draw_n]
         self.cards[:draw_n] = [] # remove cards drawn from deck
         return draw_cards
+
+class Player:
+    """Stores current score and cards in hand of a player"""
+    def __init__(self, name: str, hand: list = [], score: int = 0):
+        self.hand = []
+        self.name = name
+        self.hand = hand
+        self.score = score
+
+    def __repr__(self):
+        return 'Player(name {n}, score: {s}, {h})'.format(n=self.name,
+                                              s=self.score, 
+                                              h=self.hand)
+
+    def peg(self, points: int):
+        """Adds points to cumulative score"""
+        self.score += points
