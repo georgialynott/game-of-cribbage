@@ -48,13 +48,13 @@ class Deck:
                self.cards.append(Card(r, s))
 
     def shuffle(self):
-        # simulates random shuffling of deck
+        """Shuffles the deck"""
         random.shuffle(self.cards)
     
-    def draw(self, draw_n: int):
-        # simulates drawing "draw_n" number of cards from the top of the deck
-        draw_cards = self.cards[:draw_n]
-        self.cards[:draw_n] = [] # remove cards drawn from deck
+    def draw(self, n: int):
+        """Draws n cards from the top of the deck"""
+        draw_cards = self.cards[:n]
+        self.cards[:n] = [] # remove cards drawn from deck
         return draw_cards
 
 class Player:
