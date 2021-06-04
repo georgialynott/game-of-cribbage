@@ -5,7 +5,7 @@ from game_mechanics import Rank, Suit, Card
 foo_rank = Rank['TWO']
 foo_suit = Suit['HEARTS']
 
-print(foo_rank) # expect: Rank.QUEEN
+print(foo_rank) # expect: Rank.TWO
 print(foo_suit) # expect: Suit.HEARTS
 
-print(Card(foo_rank, foo_suit))
+print(Card(foo_rank, foo_suit)) # expect: Card(TWO <\u2665>)
