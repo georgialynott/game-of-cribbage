@@ -2,8 +2,10 @@
 # and the rules for creating runs, pairs etc. to score points in cribbage
 
 # IMPORTS
+from _typeshed import OpenBinaryMode
 from typing import Union
 from itertools import chain
+from enum import Enum, auto
 import random
 
 # GLOBAL CONSTANTS
@@ -11,6 +13,27 @@ FACE_CARD_VALUES = {'A': 1, 'J': 10, 'Q': 10, 'K': 10}
 SUITS_UNICODE = {'C': '\u2663', 'D': '\u2666', 'H': '\u2665' , 'S': '\u2660'}
 
 # CLASSES
+class Rank(Enum):
+    ACE = auto()
+    TWO = auto()
+    THREE = auto()
+    FOUR = auto()
+    FIVE = auto()
+    SIX = auto()
+    SEVEN = auto()
+    EIGHT = auto()
+    NINE = auto()
+    TEN = auto()
+    JACK = auto()
+    QUEEN = auto()
+    KING = auto()
+
+class Suit(Enum):
+    CLUBS = auto()
+    DIAMONDS = auto()
+    HEARTS = auto()
+    SPADES = auto()
+    
 class Card:
     """ A playing card in a standard 52-card deck with
         a "rank" (2 - 10, (J)ack, (Q)ueen, (K)ing, or (A)ce), 
