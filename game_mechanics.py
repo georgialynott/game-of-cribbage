@@ -2,15 +2,10 @@
 # and the rules for creating runs, pairs etc. to score points in cribbage
 
 # IMPORTS
-from _typeshed import OpenBinaryMode
 from typing import Union
 from itertools import chain
 from enum import Enum, auto
 import random
-
-# GLOBAL CONSTANTS
-FACE_CARD_VALUES = {'A': 1, 'J': 10, 'Q': 10, 'K': 10}
-SUITS_UNICODE = {'C': '\u2663', 'D': '\u2666', 'H': '\u2665' , 'S': '\u2660'}
 
 # CLASSES
 class Rank(Enum):
@@ -40,18 +35,22 @@ class Card:
         a "suit" (Clubs, Diamonds, Hearts or Spades) and
         a value used for scoring (Aces = 1; J, Q, or K = 10; else = number on card))
         """
-    def __init__(self, rank: Union[int, str], suit: str):
+    def __init__(self, rank: Rank, suit: Suit):
         self.rank = rank
-        self.suit = suit.capitalize()
+        self.suit = suit
         # determine card value for scoring purposes
         self.value()
 
     def __repr__(self):
-        return 'Card({r} {s})'.format(r=self.rank, s=SUITS_UNICODE[self.suit[0]])
+        SUITS_UNICODE = {'CLUBS': '\u2663',
+                         'DIAMONDS': '\u2666', 
+                         'HEARTS': '\u2665' , 
+                         'SPADES': '\u2660'}
+        return 'Card({r} {s})'.format(r=self.rank.name, s=SUITS_UNICODE[self.suit.name])
 
     def value(self):
-        if isinstance(self.rank, str):
-            self.value = FACE_CARD_VALUES[self.rank]
+        if self.rank.value > 10:
+            self.value = 10 # court cards have value 10
         else:
             self.value = self.rank
 
