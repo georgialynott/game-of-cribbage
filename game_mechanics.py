@@ -70,3 +70,7 @@ class Player:
     def peg(self, points: int):
         """Adds points to cumulative score"""
         self.score += points
+        
+    def discard(self, card_pos: int):
+        """Discards card(s) at `card_pos` from the player's hand"""
+        return list(self.hand.pop(i) for i in sorted(card_pos, reverse=True))
