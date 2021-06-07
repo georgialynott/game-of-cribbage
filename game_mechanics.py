@@ -46,7 +46,15 @@ class Card:
                          'DIAMONDS': '\u2666', 
                          'HEARTS': '\u2665' , 
                          'SPADES': '\u2660'}
-        return 'Card({r} {s})'.format(r=self.rank.name, s=SUITS_UNICODE[self.suit.name])
+        CARD_CHARACTERS = {'ACE': 'A',
+                           'JACK': 'J',
+                           'QUEEN': 'Q',
+                           'KING': 'K'}
+        if self.rank.name in CARD_CHARACTERS:
+            rank_str = CARD_CHARACTERS[self.rank.name]
+        else:
+            rank_str = self.rank.value
+        return 'Card({r} {s})'.format(r=rank_str, s=SUITS_UNICODE[self.suit.name])
 
     def value(self):
         if self.rank.value > 10:
