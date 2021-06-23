@@ -62,11 +62,18 @@ while player_1.score & player_2.score < 121:
     
     # THE PLAY
     # --------
-    # Starting with the dealers, players take turns placing cards
+    # Starting with the dealers, players take turns placing cards, 
+    # beginning with the non-dealer, face-up and adding their scores
     # up to a cumlative value of 31. If a player cannot play a card
     # without going over 31, they say "Go". The other player must then
     # place any remaining cards they can from their hand, without
     # exceeding 31. Play then restarts with the player who called 
     # "Go" playing first.
 
+    # Begin loop for "The Play"
+    # while player_1.hand is not [] & player_2.hand is not []:
+    player_1.play(int(input('Choose card to play: '))-1)
+    print(player_1.played_cards)
+    player_2.play(int(input('Choose card to play: '))-1)
+    print(player_2.played_cards)
     
