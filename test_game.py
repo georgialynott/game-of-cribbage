@@ -29,6 +29,7 @@ while player_1.score & player_2.score < 121:
 
     # Select dealer based on round
     dealer = [player_1, player_2][round_number%2]
+    non_dealer = [player_1, player_2][(round_number+1)%2]
 
     # Deal each player a hand of 6
     player_1.hand = deck.draw(6)
@@ -71,9 +72,15 @@ while player_1.score & player_2.score < 121:
     # "Go" playing first.
 
     # Begin loop for "The Play"
-    # while player_1.hand is not [] & player_2.hand is not []:
-    player_1.play(int(input('Choose card to play: '))-1)
-    print(player_1.played_cards)
-    player_2.play(int(input('Choose card to play: '))-1)
-    print(player_2.played_cards)
+    while player_1.hand is not [] & player_2.hand is not []:
+        running_total = 0
+        while running_total < 31:
+            for player in [non_dealer, dealer]
+                if running_total + min([card.value for card in player.hand]) > 31:
+                    return
+                else:
+                    player.play(int(input('Choose card to play: '))-1)
+            print(player_1.played_cards)
+            player_2.play(int(input('Choose card to play: '))-1)
+            print(player_2.played_cards)
     
