@@ -76,11 +76,7 @@ while player_1.score & player_2.score < 121:
         running_total = 0
         while running_total < 31:
             for player in [non_dealer, dealer]
-                if running_total + min([card.value for card in player.hand]) > 31:
-                    return
-                else:
+                while running_total + min([card.value for card in player.hand]) > 31:
+                    print(player.hand)
                     player.play(int(input('Choose card to play: '))-1)
-            print(player_1.played_cards)
-            player_2.play(int(input('Choose card to play: '))-1)
-            print(player_2.played_cards)
-    
+                    running_total += player.played_cards(-1).value

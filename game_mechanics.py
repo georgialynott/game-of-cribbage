@@ -56,14 +56,15 @@ class Deck:
 
 class Player:
     """Stores current score and cards in hand of a player"""
-    def __init__(self, name: str, hand: list = [], score: int = 0, played_cards: list = []):
+    def __init__(self, name: str):
         self.name = name
-        self.hand = hand
-        self.score = score
-        self.played_cards = played_cards
-
+        self.hand = []
+        self.score = 0
+        self.played_cards = []
+        self.go_flag = 0
+        
     def __repr__(self):
-        return 'Player(name {n}, score: {s}, {h})'.format(n=self.name,
+        return 'Player({n}, score: {s}, {h})'.format(n=self.name,
                                               s=self.score, 
                                               h=self.hand)
 
@@ -75,7 +76,10 @@ class Player:
         """Discards card(s) at `card_pos` from the player's hand"""
         return list(self.hand.pop(i) for i in sorted(card_pos, reverse=True))
 
-    def play(self, card_pos: int):
+    def play_card(self, card_pos: int):
         """Plays a card 'card_pos'from the player's hand, without
             discarding the card"""
-        self.played_cards.append(self.hand.pop(card_pos))
+        card_played = self.hand.pop(card_pos)
+        self.played_cards.append(card_played)
+        return card_played
+
