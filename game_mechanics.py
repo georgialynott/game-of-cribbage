@@ -24,7 +24,7 @@ class Card:
         self.value()
 
     def __repr__(self):
-        return 'Card({r} {s})'.format(r=self.rank, s=SUITS_UNICODE[self.suit[0]])
+        return '|{r} {s}|'.format(r=self.rank, s=SUITS_UNICODE[self.suit[0]])
 
     def value(self):
         if isinstance(self.rank, str):
