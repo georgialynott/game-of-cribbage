@@ -54,7 +54,7 @@ class Card:
             rank_str = CARD_CHARACTERS[self.rank.name]
         else:
             rank_str = self.rank.value
-        return 'Card({r} {s})'.format(r=rank_str, s=SUITS_UNICODE[self.suit.name])
+        return '|{r} {s}|'.format(r=rank_str, s=SUITS_UNICODE[self.suit.name])
 
     def value(self):
         if self.rank.value > 10:
@@ -86,14 +86,15 @@ class Deck:
 
 class Player:
     """Stores current score and cards in hand of a player"""
-    def __init__(self, name: str, hand: list = [], score: int = 0):
-        self.hand = []
+    def __init__(self, name: str):
         self.name = name
-        self.hand = hand
-        self.score = score
-
+        self.hand = []
+        self.score = 0
+        self.played_cards = []
+        self.go_flag = 0
+        
     def __repr__(self):
-        return 'Player(name {n}, score: {s}, {h})'.format(n=self.name,
+        return 'Player({n}, score: {s}, {h})'.format(n=self.name,
                                               s=self.score, 
                                               h=self.hand)
 
@@ -104,3 +105,11 @@ class Player:
     def discard(self, card_pos: int):
         """Discards card(s) at `card_pos` from the player's hand"""
         return list(self.hand.pop(i) for i in sorted(card_pos, reverse=True))
+
+    def play_card(self, card_pos: int):
+        """Plays a card 'card_pos'from the player's hand, without
+            discarding the card"""
+        card_played = self.hand.pop(card_pos)
+        self.played_cards.append(card_played)
+        return card_played
+
