@@ -4,31 +4,61 @@
 # IMPORTS
 from typing import Union
 from itertools import chain
+from enum import Enum, auto
 import random
 
-# GLOBAL CONSTANTS
-FACE_CARD_VALUES = {'A': 1, 'J': 10, 'Q': 10, 'K': 10}
-SUITS_UNICODE = {'C': '\u2663', 'D': '\u2666', 'H': '\u2665' , 'S': '\u2660'}
-
 # CLASSES
+class Rank(Enum):
+    ACE = auto()
+    TWO = auto()
+    THREE = auto()
+    FOUR = auto()
+    FIVE = auto()
+    SIX = auto()
+    SEVEN = auto()
+    EIGHT = auto()
+    NINE = auto()
+    TEN = auto()
+    JACK = auto()
+    QUEEN = auto()
+    KING = auto()
+
+class Suit(Enum):
+    CLUBS = auto()
+    DIAMONDS = auto()
+    HEARTS = auto()
+    SPADES = auto()
+    
 class Card:
     """ A playing card in a standard 52-card deck with
         a "rank" (2 - 10, (J)ack, (Q)ueen, (K)ing, or (A)ce), 
         a "suit" (Clubs, Diamonds, Hearts or Spades) and
         a value used for scoring (Aces = 1; J, Q, or K = 10; else = number on card))
         """
-    def __init__(self, rank: Union[int, str], suit: str):
+    def __init__(self, rank: Rank, suit: Suit):
         self.rank = rank
-        self.suit = suit.capitalize()
+        self.suit = suit
         # determine card value for scoring purposes
         self.value()
 
     def __repr__(self):
-        return '|{r} {s}|'.format(r=self.rank, s=SUITS_UNICODE[self.suit[0]])
+        SUITS_UNICODE = {'CLUBS': '\u2663',
+                         'DIAMONDS': '\u2666', 
+                         'HEARTS': '\u2665' , 
+                         'SPADES': '\u2660'}
+        CARD_CHARACTERS = {'ACE': 'A',
+                           'JACK': 'J',
+                           'QUEEN': 'Q',
+                           'KING': 'K'}
+        if self.rank.name in CARD_CHARACTERS:
+            rank_str = CARD_CHARACTERS[self.rank.name]
+        else:
+            rank_str = self.rank.value
+        return '|{r} {s}|'.format(r=rank_str, s=SUITS_UNICODE[self.suit.name])
 
     def value(self):
-        if isinstance(self.rank, str):
-            self.value = FACE_CARD_VALUES[self.rank]
+        if self.rank.value > 10:
+            self.value = 10 # court cards have value 10
         else:
             self.value = self.rank
 
