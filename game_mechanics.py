@@ -2,7 +2,6 @@
 # and the rules for creating runs, pairs etc. to score points in cribbage
 
 # IMPORTS
-from typing import Union
 from itertools import chain
 from enum import Enum, auto
 import random
@@ -23,12 +22,14 @@ class Rank(Enum):
     QUEEN = auto()
     KING = auto()
 
+
 class Suit(Enum):
     CLUBS = auto()
     DIAMONDS = auto()
     HEARTS = auto()
     SPADES = auto()
-    
+
+
 class Card:
     """ A playing card in a standard 52-card deck with
         a "rank" (2 - 10, (J)ack, (Q)ueen, (K)ing, or (A)ce), 
@@ -38,8 +39,6 @@ class Card:
     def __init__(self, rank: Rank, suit: Suit):
         self.rank = rank
         self.suit = suit
-        # determine card value for scoring purposes
-        self.value()
 
     def __repr__(self):
         SUITS_UNICODE = {'CLUBS': '\u2663',
@@ -58,18 +57,18 @@ class Card:
 
     def value(self):
         if self.rank.value > 10:
-            self.value = 10 # court cards have value 10
+            return 10 # court cards have value 10
         else:
-            self.value = self.rank
+            return self.rank.value
 
 
 class Deck:
     """ A standard 52-card deck with 4 suits of 13 ranks each """
     def __init__(self):
         self.cards = []
-        for s in ['Clubs', 'Diamonds', 'Hearts', 'Spades']:
-            for r in chain(['A'], range(2, 11), ['J', 'Q', 'K']):
-               self.cards.append(Card(r, s))
+        for s in range(1, 5):
+            for r in range(1, 14):
+               self.cards.append(Card(Rank(r), Suit(s)))
 
     def __repr__(self):
         return 'Deck({c})'.format(c=self.cards)

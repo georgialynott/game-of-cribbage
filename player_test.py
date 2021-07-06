@@ -66,7 +66,7 @@ while player_1.hand and player_2.hand:
     while player_1.go_flag + player_2.go_flag < 2:
         for player in [player_start, player_other]:
             if (player.hand and 
-                running_total + min([card.value for card in player.hand]) <= 31):
+                running_total + min([card.value() for card in player.hand]) <= 31):
                 # Show player's hand and get them to choose a card to play
                 print('{p}\'s hand: {h}'.format(p=player.name, h=player.hand))
                 player_input = input('{p} choose card to play (1-{l}): '.format(p=player.name, l=len(player.hand)))
@@ -74,13 +74,13 @@ while player_1.hand and player_2.hand:
                 while (not player_input.isdigit() or
                         int(player_input) < 1 or 
                         int(player_input) > len(player.hand) or 
-                        player.hand[int(player_input)-1].value + running_total > 31):
+                        player.hand[int(player_input)-1].value() + running_total > 31):
                     print('Error: invalid card selected')
                     player_input = input('{p} choose card to play (1-{l}): '.format(p=player.name, l=len(player.hand)))
                 # Remove card from player hand and add to played cards and running total
                 card_pos = int(player_input) - 1
                 cards_played.append(player.play_card(card_pos))
-                running_total += cards_played[-1].value
+                running_total += cards_played[-1].value()
                 print('Cards played: {c}'.format(c=cards_played))
                 print('Running total: {r}'.format(r=running_total))
                 # Allow player to peg if points scored
